@@ -17,6 +17,11 @@ class Tweet extends Model {
 
         return this.hasMany('App/Models/Favourite')
     }
+    
+    user () {
+        return this.belongsTo('App/Models/User')
+    }
+   
 }
 
 module.exports = Tweet

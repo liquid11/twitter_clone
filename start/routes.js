@@ -17,9 +17,29 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
+  return {greeting: 'Hello world in JSON'}
 })
 
-Route.post('/signup','UserController.signup')
+Route.get(':username', 'UserController.showProfile')
 
-Route.post('/login','UserController.login')
+Route.post('/signup', 'UserController.signup')
+
+Route.post('/login', 'UserController.login')
+
+Route.post('/change_password', 'UserController.changePassword')
+
+Route.group(() => {
+
+  Route.get('/user_to_follow', 'UserController.usersToFollow')
+
+})
+  .prefix('users')
+  .middleware('auth:jwt')
+
+Route.group(() => {
+
+  Route.get('/me', 'UserController.me')
+  Route.put('/update_profile', 'UserController.updateProfile')
+})
+  .prefix('account')
+  .middleware('auth:jwt')
